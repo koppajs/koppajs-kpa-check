@@ -9,7 +9,7 @@ The effective compatibility contract is the dependency range in `package.json`.
 
 For the current release line, `kpa-check` declares:
 
-- `@koppajs/koppajs-language-core: ^0.1.2`
+- `@koppajs/koppajs-language-core: ^0.1.3`
 
 The package must not claim compatibility outside the range it actually declares
 and validates.

@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import * as publicApi from '../../index';
+import * as publicApi from '../../index.js';
 
 describe('public root module', () => {
   it('exports only the documented runtime contract and does not execute the CLI on import', () => {

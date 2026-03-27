@@ -81,6 +81,7 @@ Before tagging, also review
 [docs/meta/version-compatibility.md](./docs/meta/version-compatibility.md)
 and confirm that the declared
 `@koppajs/koppajs-language-core` range is the range you intend to support.
+For the current release line, that declared range is `^0.1.3`.
 
 The published package contents are controlled by the `files` field in
 `package.json`. The intended publish payload is:

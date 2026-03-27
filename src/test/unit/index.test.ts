@@ -8,7 +8,7 @@ import {
   runKpaCheck,
   type KpaCheckIo,
   type KpaCheckWorkspaceGraph,
-} from '../../runner';
+} from '../../runner.js';
 
 function createCapturedIo(): {
   io: KpaCheckIo;
@@ -20,10 +20,10 @@ function createCapturedIo(): {
 
   return {
     io: {
-      error(message) {
+      error(message: string) {
         stderr.push(message);
       },
-      log(message) {
+      log(message: string) {
         stdout.push(message);
       },
     },
@@ -48,7 +48,7 @@ describe('resolveCliTargets', () => {
   it('fails when at least one requested target does not exist', () => {
     const result = resolveCliTargets(['existing.kpa', 'missing.kpa'], {
       cwd: '/workspace/project',
-      fileExists(targetPath) {
+      fileExists(targetPath: string) {
         return targetPath.endsWith('existing.kpa');
       },
     });
@@ -235,11 +235,11 @@ describe('runKpaCheck', () => {
     const diagnosticsRequests: string[][] = [];
 
     const exitCode = runKpaCheck(['src', 'Page.kpa'], {
-      createWorkspaceGraph(targets) {
+      createWorkspaceGraph(targets: readonly string[]) {
         requestedPaths.push([...targets]);
 
         return {
-          collectDiagnosticsForPaths(paths) {
+          collectDiagnosticsForPaths(paths: readonly string[]) {
             diagnosticsRequests.push([...paths]);
             return [
               {
@@ -252,8 +252,10 @@ describe('runKpaCheck', () => {
               },
             ];
           },
-          getKpaFilePaths(paths) {
-            requestedPaths.push([...(paths ?? [])].filter((pathValue): pathValue is string => pathValue !== undefined));
+          getKpaFilePaths(paths?: readonly (string | undefined)[]) {
+            requestedPaths.push(
+              [...(paths ?? [])].filter((pathValue): pathValue is string => pathValue !== undefined),
+            );
             return ['/workspace/project/Page.kpa', '/workspace/project/src/UserCard.kpa'];
           },
         } satisfies KpaCheckWorkspaceGraph;
