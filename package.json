@@ -1,0 +1,62 @@
+{
+  "name": "@koppajs/koppajs-kpa-check",
+  "version": "0.1.0",
+  "description": "CLI diagnostics runner for KoppaJS .kpa files.",
+  "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/koppajs/koppajs-kpa-check.git"
+  },
+  "homepage": "https://github.com/koppajs/koppajs-kpa-check#readme",
+  "bugs": {
+    "url": "https://github.com/koppajs/koppajs-kpa-check/issues"
+  },
+  "bin": {
+    "kpa-check": "./dist/cli.js"
+  },
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist",
+    "README.md",
+    "CHANGELOG.md",
+    "LICENSE"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
+  },
+  "scripts": {
+    "check:meta": "node scripts/check-meta-layer.mjs",
+    "format:check": "node scripts/format-check.mjs",
+    "build": "tsc -p tsconfig.build.json",
+    "lint": "eslint . --ext .ts,.mjs --ignore-pattern dist --ignore-pattern node_modules --max-warnings=0",
+    "pack:dry-run": "npm pack --dry-run",
+    "prepack": "npm run validate",
+    "release:check": "npm pack --dry-run",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "typecheck": "tsc --noEmit -p tsconfig.json",
+    "check": "npm run validate && npm run release:check",
+    "validate": "npm run check:meta && npm run format:check && npm run lint && npm run typecheck && npm run test && npm run build"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "@koppajs/koppajs-language-core": "^0.1.2"
+  },
+  "devDependencies": {
+    "@types/node": "^22.19.15",
+    "@typescript-eslint/eslint-plugin": "^8.46.2",
+    "@typescript-eslint/parser": "^8.46.2",
+    "eslint": "^9.38.0",
+    "typescript": "^5.3.3",
+    "vitest": "^3.2.4"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}
