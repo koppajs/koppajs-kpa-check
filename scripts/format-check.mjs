@@ -36,6 +36,12 @@ function walk(directoryPath) {
     const absolutePath = path.join(directoryPath, entry.name);
     const relativePath = path.relative(rootDirectory, absolutePath);
 
+    // Husky bootstraps helper files under .husky/_ during install; they are generated,
+    // ignored in git, and should not block repository formatting validation.
+    if (relativePath.startsWith('.husky/_/')) {
+      continue;
+    }
+
     if (!isTextFile(entry.name)) {
       continue;
     }

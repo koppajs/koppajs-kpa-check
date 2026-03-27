@@ -1,30 +1,27 @@
 # Specifications
 
-Specs define intended behavior and are the highest-level behavior documents in
-this repository.
+Specs define intended behavior before or alongside implementation work.
+They are the highest-precedence behavioral documents in this repository once approved.
 
 ## When To Add Or Update A Spec
 
-- the CLI contract changes
-- exit-code behavior changes
-- the root package export gains or changes supported behavior
-- target resolution or output formatting changes
+- A public behavior changes
+- A contributor-facing workflow changes
+- A governed root document changes shape
+- A new subsystem takes on externally visible behavior
 
 ## Required Sections
 
-- `status`
-- `description`
-- `behavior`
-- `inputs`
-- `outputs`
-- `constraints`
-- `edge_cases`
-- `acceptance_criteria`
-- `evolution_phase`
-- `completeness_level`
-- `known_gaps`
-- `deferred_complexity`
-- `technical_debt_items`
-- `change_management`
+- scope
+- behavior
+- constraints
+- edge cases
+- validation or acceptance criteria
 
-Use [SPEC_TEMPLATE.md](./SPEC_TEMPLATE.md) for new specs.
+Use the local spec template when one exists.
+
+## Current Specs
+
+- `SPEC_TEMPLATE.md`
+- `diagnostics-runner-contract.md`
+- `repository-documentation-contract.md`

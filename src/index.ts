@@ -4,4 +4,4 @@ export {
   type KpaCheckIo,
   type KpaCheckOutputFormat,
   type RunKpaCheckOptions,
-} from './runner';
+} from './runner.js';
