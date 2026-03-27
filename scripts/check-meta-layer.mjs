@@ -5,19 +5,19 @@ import { fileURLToPath } from 'url';
 const rootDirectory = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 
 const requiredDirectories = [
-  'adr',
-  'architecture',
+  '.github',
+  '.github/workflows',
   'docs',
   'docs/adr',
   'docs/architecture',
   'docs/meta',
   'docs/quality',
   'docs/specs',
-  'quality',
-  'specs',
 ];
 
 const requiredPaths = [
+  '.github/workflows/ci.yml',
+  '.github/workflows/release.yml',
   'AI_CONSTITUTION.md',
   'ARCHITECTURE.md',
   'CHANGELOG.md',
@@ -27,21 +27,18 @@ const requiredPaths = [
   'RELEASE.md',
   'ROADMAP.md',
   'TESTING_STRATEGY.md',
-  'architecture/README.md',
-  'adr/README.md',
   'docs/adr/README.md',
   'docs/architecture/module-boundaries.md',
   'docs/architecture/README.md',
-  'docs/meta/change-triggers.md',
+  'docs/meta/maintenance.md',
   'docs/meta/README.md',
+  'docs/meta/tooling-baseline.md',
+  'docs/meta/version-compatibility.md',
   'docs/quality/README.md',
   'docs/quality/quality-gates.md',
-  'docs/quality/tooling-baseline.md',
   'docs/specs/README.md',
   'docs/specs/SPEC_TEMPLATE.md',
   'docs/specs/diagnostics-runner-contract.md',
-  'quality/README.md',
-  'specs/README.md',
 ];
 
 const missingDirectories = requiredDirectories.filter((relativePath) => {

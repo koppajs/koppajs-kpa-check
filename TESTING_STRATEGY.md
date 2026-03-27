@@ -37,7 +37,7 @@ Purpose:
 ### 3. Build and package verification
 
 - `npm run build`
-- `npm run pack:dry-run`
+- `npm run release:check`
 - `npm run validate` via `prepack`
 
 Purpose:

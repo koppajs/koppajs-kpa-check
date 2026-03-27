@@ -1,33 +1,24 @@
 # Meta Layer Guide
 
-## Purpose
+The meta layer is the repository's architecture memory and decision framework.
+It exists to keep implementation, docs, and collaboration rules aligned.
 
-The meta layer is the repository memory for architecture, quality gates, and
-contract decisions.
+## Contents
 
-## Reading Order
+- root governance docs define the top-level rules for architecture,
+  development, testing, release, and decision precedence
+- `docs/architecture/` stores deeper structure and dependency-boundary detail
+- `docs/adr/` stores architectural decisions and their rationale
+- `docs/specs/` stores the package's client-visible contract
+- `docs/quality/` stores quality gates and verification procedures
+- [`tooling-baseline.md`](./tooling-baseline.md) records the active tooling
+  baseline and deliberate exclusions
+- [`version-compatibility.md`](./version-compatibility.md) defines how this
+  package tracks compatible `@koppajs/koppajs-language-core` versions
+- [`maintenance.md`](./maintenance.md) defines how the meta layer evolves with
+  the codebase
 
-1. [../../DECISION_HIERARCHY.md](../../DECISION_HIERARCHY.md)
-2. [../../AI_CONSTITUTION.md](../../AI_CONSTITUTION.md)
-3. [../../ARCHITECTURE.md](../../ARCHITECTURE.md)
-4. [../../RELEASE.md](../../RELEASE.md)
-5. [../../DEVELOPMENT_RULES.md](../../DEVELOPMENT_RULES.md)
-6. [../../TESTING_STRATEGY.md](../../TESTING_STRATEGY.md)
-7. [../architecture/README.md](../architecture/README.md)
-8. [../quality/README.md](../quality/README.md)
-9. [../specs/README.md](../specs/README.md)
-10. [../adr/README.md](../adr/README.md)
+## Operating Rule
 
-## What Lives Where
-
-- Root documents define repository-wide rules.
-- `RELEASE.md` and `CHANGELOG.md` define the release history and release flow.
-- `docs/architecture/` describes structure and boundaries.
-- `docs/adr/` records durable technical decisions.
-- `docs/specs/` defines behavior contracts.
-- `docs/quality/` explains verification and tool choices.
-
-## Maintenance Rule
-
-Update the relevant meta-layer document in the same change as the code or
-workflow it governs.
+If the system changes, the meta layer changes in the same pull request. Drift is
+a defect.

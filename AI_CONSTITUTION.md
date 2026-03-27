@@ -49,10 +49,11 @@ turn explicit filesystem targets into deterministic CLI diagnostics by reusing
 
 1. [DECISION_HIERARCHY.md](./DECISION_HIERARCHY.md)
 2. [ARCHITECTURE.md](./ARCHITECTURE.md)
-3. Relevant spec in [docs/specs/](./docs/specs)
-4. Relevant ADRs in [docs/adr/](./docs/adr)
-5. [DEVELOPMENT_RULES.md](./DEVELOPMENT_RULES.md)
-6. [TESTING_STRATEGY.md](./TESTING_STRATEGY.md)
+3. [docs/meta/README.md](./docs/meta/README.md)
+4. Relevant spec in [docs/specs/](./docs/specs)
+5. Relevant ADRs in [docs/adr/](./docs/adr)
+6. [DEVELOPMENT_RULES.md](./DEVELOPMENT_RULES.md)
+7. [TESTING_STRATEGY.md](./TESTING_STRATEGY.md)
 
 ## Required Workflow
 
@@ -87,5 +88,7 @@ When any of these change, update the corresponding documents in the same work:
 - architecture or module boundaries -> `ARCHITECTURE.md`,
   `docs/architecture/*`
 - testing or quality gates -> `TESTING_STRATEGY.md`, `docs/quality/*`
+- release or dependency-compatibility policy -> `RELEASE.md`, `CHANGELOG.md`,
+  `docs/meta/*`
 - lasting technical direction -> new ADR in `docs/adr/*`
 - contributor workflow -> `CONTRIBUTING.md`

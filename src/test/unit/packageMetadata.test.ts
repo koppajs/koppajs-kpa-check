@@ -43,5 +43,6 @@ describe('package manifest', () => {
     expect(packageManifest.dependencies['@koppajs/koppajs-language-core']).toBe('^0.1.2');
     expect(packageManifest.dependencies['@koppajs/language-core']).toBeUndefined();
     expect(packageManifest.scripts.prepack).toBe('npm run validate');
+    expect(packageManifest.scripts['release:check']).toBe('npm pack --dry-run');
   });
 });

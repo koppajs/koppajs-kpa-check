@@ -162,15 +162,16 @@ The enforced repository checks are:
 
 The release candidate should also pass:
 
-- `npm pack --dry-run`
+- `npm run release:check`
 
 ## Release Model
 
-Releases are manual and versioned.
+Releases are manual and tag-driven through GitHub Actions.
 
 - `package.json` defines the intended release version
 - `CHANGELOG.md` records the release notes
 - `RELEASE.md` defines the repository-specific release workflow
+- `.github/workflows/release.yml` validates and publishes tagged releases
 
 ## Governance
 
@@ -186,6 +187,9 @@ Repository governance lives in:
 - [CONTRIBUTING.md](./CONTRIBUTING.md)
 - [ROADMAP.md](./ROADMAP.md)
 - [docs/meta/README.md](./docs/meta/README.md)
+- [docs/meta/maintenance.md](./docs/meta/maintenance.md)
+- [docs/meta/tooling-baseline.md](./docs/meta/tooling-baseline.md)
+- [docs/meta/version-compatibility.md](./docs/meta/version-compatibility.md)
 - [docs/architecture/README.md](./docs/architecture/README.md)
 - [docs/quality/README.md](./docs/quality/README.md)
 

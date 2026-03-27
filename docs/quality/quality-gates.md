@@ -17,8 +17,8 @@
   Verifies runner behavior through unit and lightweight integration tests.
 - `npm run build`
   Emits the package build and declarations.
-- `npm run pack:dry-run`
-  Verifies the package payload can be packed.
+- `npm run release:check`
+  Verifies the package payload can be packed for release.
 - `npm run validate` via `prepack`
   Re-runs the repository baseline before package creation or publish.
 - `npm run check`
