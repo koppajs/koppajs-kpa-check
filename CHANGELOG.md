@@ -12,6 +12,10 @@ not every internal refactor.
 
 ## [Unreleased]
 
+This section is intentionally empty.
+
+## [0.1.2]
+
 - Fix the published ESM runtime by resolving `package.json` without `__dirname`
   and add a post-build `dist` smoke test to `validate`.
 - Raise the minimum supported Node.js version to `>= 22`, keep the maintainer
