@@ -11,7 +11,14 @@ not every internal refactor.
 ---
 
 ## [Unreleased]
-This section is intentionally empty.
+
+- Fix the published ESM runtime by resolving `package.json` without `__dirname`
+  and add a post-build `dist` smoke test to `validate`.
+- Raise the minimum supported Node.js version to `>= 22`, keep the maintainer
+  default on Node 22, and expand CI validation to Node 22 and Node 24.
+- Add semantic documentation checks, tracked engine enforcement, workflow
+  documentation, and real `@koppajs/koppajs-language-core` CLI regression
+  coverage to keep the repository aligned with the KoppaJS package baseline.
 
 ## [0.1.1]
 

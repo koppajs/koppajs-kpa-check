@@ -62,6 +62,8 @@ npm run check:docs
 ```
 
 The local pre-commit hook runs the same guard and blocks the commit when the contract fails.
+`npm run check:docs` combines the structural root-document contract with
+semantic checks that keep workflows, versions, and quality-gate claims aligned.
 
 <p align="right">(<a href="#contributing-top">back to top</a>)</p>
 
@@ -69,8 +71,10 @@ The local pre-commit hook runs the same guard and blocks the commit when the con
 
 ## Requirements
 
-- Node.js >= 20
+- Node.js >= 22
 - npm >= 10
+
+The tracked `.npmrc` enforces compatible Node.js and npm versions during install.
 
 Install dependencies:
 
@@ -153,12 +157,15 @@ That means:
 
 | Command | Description |
 | ------- | ----------- |
-| `npm run check:docs` | Validate README, CHANGELOG, CODE_OF_CONDUCT, CONTRIBUTING, and the local doc contract |
+| `npm run check:docs` | Validate governed root docs and semantic repository claims |
+| `npm run check:meta` | Validate required meta-layer files and workflow documentation |
 | `npm run check` | Run the main local quality gate |
 | `npm run validate` | Run the repository validation flow |
 | `npm run build` | Build the project output |
 | `npm run test` | Run the test suite |
+| `npm run test:dist` | Smoke-test the built CLI against the published runtime path |
 | `npm run lint` | Run lint checks |
+| `npm run typecheck` | Run TypeScript checks without emitting files |
 | `npm run format:check` | Check formatting without rewriting files |
 | `npm run release:check` | Run release-facing verification |
 

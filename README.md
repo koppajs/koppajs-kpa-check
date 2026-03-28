@@ -47,6 +47,8 @@
     <li><a href="#repository-classification">Repository Classification</a></li>
     <li><a href="#ownership-boundaries">Ownership Boundaries</a></li>
     <li><a href="#public-contract">Public Contract</a></li>
+    <li><a href="#installation">Installation</a></li>
+    <li><a href="#requirements">Requirements</a></li>
     <li><a href="#usage">Usage</a></li>
     <li><a href="#json-output">JSON Output</a></li>
     <li><a href="#exit-codes">Exit Codes</a></li>
@@ -130,11 +132,42 @@ The governing behavior spec is
 
 This release line validates against:
 
-- `@koppajs/koppajs-language-core: ^0.1.3`
+- `@koppajs/koppajs-language-core: ^0.1.4`
 
 The effective compatibility contract is the dependency range in
 `package.json`. The maintenance policy lives in
 [`docs/meta/version-compatibility.md`](./docs/meta/version-compatibility.md).
+
+---
+
+## Installation
+
+Install the package into a workspace that should run local `.kpa` diagnostics:
+
+```bash
+npm install --save-dev @koppajs/koppajs-kpa-check
+```
+
+Run it without adding a custom wrapper:
+
+```bash
+npx kpa-check src
+```
+
+---
+
+## Requirements
+
+For package consumers:
+
+- Node.js >= 22
+
+For local repository work:
+
+- Node.js >= 22
+- npm >= 10
+
+The maintainer default remains pinned to Node 22 through `.nvmrc`.
 
 ---
 
@@ -242,12 +275,29 @@ place.
 
 The enforced repository checks are:
 
+- `npm run check:docs`
+- `npm run check:meta`
+- `npm run format:check`
+- `npm run lint`
+- `npm run typecheck`
+- `npm test`
+- `npm run build`
+- `npm run test:dist`
 - `npm run check`
 - `npm run validate`
 
 The release candidate should also pass:
 
 - `npm run release:check`
+
+GitHub Actions runs `npm run validate` on Node.js 22 and 24 for pushes to
+`main` and `develop` and for pull requests. Tagged releases rerun
+`npm run validate` and `npm run release:check` on the maintainer default from
+`.nvmrc` before publish.
+
+`npm run check:docs` includes both the governed root-document contract and a
+semantic consistency check that keeps version, workflow, and quality-gate claims
+aligned with the actual repository state.
 
 ---
 
@@ -280,7 +330,10 @@ Project intent, contributor rules, and documentation contracts live in the local
 - [docs/specs/repository-documentation-contract.md](./docs/specs/repository-documentation-contract.md)
 - [docs/architecture/README.md](./docs/architecture/README.md)
 - [docs/meta/README.md](./docs/meta/README.md)
+- [docs/meta/repository-map.md](./docs/meta/repository-map.md)
 - [docs/quality/README.md](./docs/quality/README.md)
+- [docs/quality/validation-baseline.md](./docs/quality/validation-baseline.md)
+- [.github/workflows/README.md](./.github/workflows/README.md)
 
 The file-shape contract for `README.md`, `CHANGELOG.md`, `CODE_OF_CONDUCT.md`, and `CONTRIBUTING.md` is defined in [docs/specs/repository-documentation-contract.md](./docs/specs/repository-documentation-contract.md).
 
