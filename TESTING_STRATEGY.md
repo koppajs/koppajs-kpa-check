@@ -3,12 +3,14 @@
 ## Goal
 
 Testing in `@koppajs/koppajs-kpa-check` protects the observable diagnostics-runner
-contract: target resolution, stable output, and exit-code behavior.
+contract: target resolution, stable output, exit-code behavior, and the
+ecosystem-facing integration boundary with `@koppajs/koppajs-language-core`.
 
 ## Test Layers
 
-### 1. Repository guards
+### 1. Documentation and repository guards
 
+- `npm run check:docs`
 - `npm run check:meta`
 - `npm run format:check`
 - `npm run lint`
@@ -16,11 +18,12 @@ contract: target resolution, stable output, and exit-code behavior.
 
 Purpose:
 
+- keep the documentation contract and semantic repo claims aligned with reality
 - keep the meta layer complete
 - keep text-file hygiene consistent
 - catch static code issues early
 
-### 2. Runner tests
+### 2. Runner and language-core integration tests
 
 - `npm test`
 
@@ -33,16 +36,21 @@ Purpose:
 - verify deterministic diagnostic ordering
 - verify mixed file and directory target behavior
 - verify real integration with `KpaWorkspaceGraph`
+- verify workspace registrations discovered through `Core.take(...)`
+- verify imported component APIs surfaced through typed `Emits` / `Slots`
+- verify `tsconfig` path-alias resolution through the shared language layer
 
 ### 3. Build and package verification
 
 - `npm run build`
+- `npm run test:dist`
 - `npm run release:check`
 - `npm run validate` via `prepack`
 
 Purpose:
 
 - verify emit correctness
+- verify the built CLI still resolves package metadata at runtime
 - verify package payload viability
 - fail packaging early if the repository baseline regressed
 
@@ -64,6 +72,7 @@ Add or update tests when changing:
 - exit-code semantics
 - programmatic runner options
 - package entrypoints
+- cross-repository language-core assumptions that affect CLI-visible results
 
 ## Playwright Policy
 
@@ -83,6 +92,13 @@ repository gains a real supported UI surface.
 The repository optimizes for scenario coverage rather than a numeric threshold.
 Every user-visible change should protect the affected runtime path.
 
+## Release And CI Gates
+
+- GitHub Actions CI runs `npm run validate` on Node.js 22 and 24.
+- The release workflow reruns `npm run validate` and `npm run release:check` on the maintainer default from `.nvmrc` before publish.
+- `npm run check:docs` combines the structural documentation contract and semantic repository checks.
+- The tracked `.npmrc` keeps Node.js and npm engine mismatches from silently slipping into local or hosted installs.
+
 ## Required Documentation Updates
 
 When behavior changes:
@@ -91,3 +107,4 @@ When behavior changes:
 - extend the relevant tests
 - update `README.md` if the public contract changed
 - update `ARCHITECTURE.md` if module boundaries or invariants moved
+- update `.github/workflows/README.md` if hosted automation changed

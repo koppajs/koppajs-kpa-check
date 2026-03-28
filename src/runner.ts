@@ -1,5 +1,6 @@
 import fs from 'fs';
 import path from 'path';
+import { fileURLToPath } from 'url';
 import {
   KpaWorkspaceGraph,
   type KpaWorkspaceFileDiagnostics,
@@ -165,6 +166,7 @@ const helpOptions = [
 ] as const;
 
 let cachedPackageMetadata: KpaCheckPackageMetadata | undefined;
+const packageRootDirectory = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 
 function compareDiagnostics(left: KpaCheckDiagnostic, right: KpaCheckDiagnostic): number {
   if (left.range.line !== right.range.line) {
@@ -183,7 +185,7 @@ function getPackageMetadata(): KpaCheckPackageMetadata {
     return cachedPackageMetadata;
   }
 
-  const packageJsonPath = path.resolve(__dirname, '..', 'package.json');
+  const packageJsonPath = path.join(packageRootDirectory, 'package.json');
   const packageJson = JSON.parse(
     fs.readFileSync(packageJsonPath, 'utf8'),
   ) as KpaCheckPackageMetadata;
@@ -197,6 +199,13 @@ function getPackageMetadata(): KpaCheckPackageMetadata {
 }
 
 function getEffectivePackageMetadata(options: RunKpaCheckOptions): KpaCheckPackageMetadata {
+  if (options.packageName !== undefined && options.version !== undefined) {
+    return {
+      name: options.packageName,
+      version: options.version,
+    };
+  }
+
   const packageMetadata = getPackageMetadata();
 
   return {
@@ -396,7 +405,6 @@ export function runKpaCheck(
 ): KpaCheckExitCode {
   const cwd = options.cwd ?? process.cwd();
   const io = options.io ?? defaultIo;
-  const packageMetadata = getEffectivePackageMetadata(options);
   const parsedInvocation = parseCliInvocation(argv, options.outputFormat ?? 'text');
 
   if (parsedInvocation.status === 'error') {
@@ -426,6 +434,8 @@ export function runKpaCheck(
   }
 
   if (parsedInvocation.command === 'help') {
+    const packageMetadata = getEffectivePackageMetadata(options);
+
     if (parsedInvocation.outputFormat === 'json') {
       writeJson(io, {
         description: 'Run KoppaJS diagnostics for .kpa files.',
@@ -443,6 +453,8 @@ export function runKpaCheck(
   }
 
   if (parsedInvocation.command === 'version') {
+    const packageMetadata = getEffectivePackageMetadata(options);
+
     if (parsedInvocation.outputFormat === 'json') {
       writeJson(io, {
         kind: 'version',

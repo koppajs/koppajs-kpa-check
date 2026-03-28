@@ -13,11 +13,15 @@ const requiredDirectories = [
   'docs/meta',
   'docs/quality',
   'docs/specs',
+  'scripts',
 ];
 
 const requiredPaths = [
   '.github/workflows/ci.yml',
   '.github/workflows/release.yml',
+  '.github/workflows/README.md',
+  '.npmrc',
+  '.nvmrc',
   'AI_CONSTITUTION.md',
   'ARCHITECTURE.md',
   'CHANGELOG.md',
@@ -32,13 +36,16 @@ const requiredPaths = [
   'docs/architecture/README.md',
   'docs/meta/maintenance.md',
   'docs/meta/README.md',
+  'docs/meta/repository-map.md',
   'docs/meta/tooling-baseline.md',
   'docs/meta/version-compatibility.md',
   'docs/quality/README.md',
   'docs/quality/quality-gates.md',
+  'docs/quality/validation-baseline.md',
   'docs/specs/README.md',
   'docs/specs/SPEC_TEMPLATE.md',
   'docs/specs/diagnostics-runner-contract.md',
+  'scripts/check-doc-semantics.mjs',
 ];
 
 const missingDirectories = requiredDirectories.filter((relativePath) => {

@@ -11,6 +11,9 @@ const checks = [
       '<a id="readme-top"></a>',
       'https://public-assets-1b57ca06-687a-4142-a525-0635f7649a5c.s3.eu-central-1.amazonaws.com/koppajs/koppajs-logo-text-900x226.png',
       '<summary>Table of Contents</summary>',
+      '## Installation',
+      '## Requirements',
+      '## Usage',
       '## Architecture & Governance',
       '## Community & Contribution',
       '## License',
@@ -74,7 +77,13 @@ const checks = [
   },
   {
     file: 'package.json',
-    snippets: ['check:docs', 'scripts/check-doc-contract.mjs'],
+    snippets: [
+      'check:docs',
+      'check:docs:contract',
+      'check:docs:semantics',
+      'scripts/check-doc-contract.mjs',
+      'scripts/check-doc-semantics.mjs',
+    ],
   },
   {
     file: '.husky/pre-commit',

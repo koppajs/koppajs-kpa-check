@@ -31,6 +31,7 @@ Changes to the structure of those files require updating this spec, the local va
 - render the shared KoppaJS logo and centered title block
 - include a badge row that matches the repository surface
 - include a Table of Contents block
+- include `Installation`, `Requirements`, and `Usage` sections
 - end with `Architecture & Governance`, `Community & Contribution`, and `License` sections
 - reference the local documentation contract spec in the governance section
 

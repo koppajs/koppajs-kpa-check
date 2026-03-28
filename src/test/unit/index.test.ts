@@ -1,6 +1,7 @@
 import fs from 'fs';
 import os from 'os';
 import path from 'path';
+import { kpaDiagnosticCodes } from '@koppajs/koppajs-language-core';
 import { describe, expect, it } from 'vitest';
 import {
   formatDiagnostic,
@@ -29,6 +30,15 @@ function createCapturedIo(): {
     },
     stderr,
     stdout,
+  };
+}
+
+function readSingleJsonDocument(stdout: readonly string[]) {
+  return JSON.parse(stdout[0] ?? '') as {
+    diagnostics?: Array<{
+      code?: string;
+      relativeFilePath?: string;
+    }>;
   };
 }
 
@@ -482,5 +492,159 @@ describe('runKpaCheck', () => {
     expect(stderr).toEqual([
       'kpa-check: 1 Diagnostic(s) in 2 .kpa-Datei(en) gefunden.',
     ]);
+  });
+
+  it('accepts workspace-registered components discovered through Core.take', () => {
+    const tempDirectory = fs.mkdtempSync(path.join(os.tmpdir(), 'kpa-check-core-take-'));
+    const componentPath = path.join(tempDirectory, 'counter-component.kpa');
+    const bootstrapPath = path.join(tempDirectory, 'main.ts');
+    const pagePath = path.join(tempDirectory, 'Page.kpa');
+
+    fs.writeFileSync(path.join(tempDirectory, 'tsconfig.json'), '{}\n');
+    fs.writeFileSync(componentPath, '[template]\n  <div></div>\n[/template]\n');
+    fs.writeFileSync(
+      bootstrapPath,
+      [
+        "import { Core } from '@koppajs/koppajs-core';",
+        "import counterComponent from './counter-component.kpa';",
+        '',
+        "Core.take(counterComponent, 'counter-component');",
+      ].join('\n'),
+    );
+    fs.writeFileSync(
+      pagePath,
+      ['[template]', '  <counter-component></counter-component>', '[/template]']
+        .join('\n')
+        .concat('\n'),
+    );
+
+    const { io, stderr, stdout } = createCapturedIo();
+    const exitCode = runKpaCheck([tempDirectory], {
+      cwd: tempDirectory,
+      io,
+    });
+
+    expect(exitCode).toBe(0);
+    expect(stdout).toEqual([
+      'kpa-check: 2 .kpa-Datei(en) geprueft, keine Diagnostics gefunden.',
+    ]);
+    expect(stderr).toEqual([]);
+  });
+
+  it('surfaces typed emits and slots diagnostics from imported component APIs', () => {
+    const tempDirectory = fs.mkdtempSync(path.join(os.tmpdir(), 'kpa-check-component-api-'));
+    const componentPath = path.join(tempDirectory, 'UserCard.kpa');
+    const pagePath = path.join(tempDirectory, 'Page.kpa');
+
+    fs.writeFileSync(
+      componentPath,
+      [
+        '[template]',
+        '  <div></div>',
+        '[/template]',
+        '',
+        '[ts]',
+        '  interface Slots {',
+        '    header: unknown;',
+        '  }',
+        '  type Emits = {',
+        '    save: [id: number];',
+        '  };',
+        '[/ts]',
+      ]
+        .join('\n')
+        .concat('\n'),
+    );
+    fs.writeFileSync(
+      pagePath,
+      [
+        '[template]',
+        '  <UserCard onClose="handleClose">',
+        '    <div>Body</div>',
+        '  </UserCard>',
+        '[/template]',
+        '',
+        '[ts]',
+        '  const handleClose = () => {};',
+        "  import UserCard from './UserCard';",
+        '[/ts]',
+      ]
+        .join('\n')
+        .concat('\n'),
+    );
+
+    const { io, stderr, stdout } = createCapturedIo();
+    const exitCode = runKpaCheck(['--json', tempDirectory], {
+      cwd: tempDirectory,
+      io,
+    });
+    const result = readSingleJsonDocument(stdout);
+    const diagnosticCodes = (result.diagnostics ?? [])
+      .map((diagnostic) => diagnostic.code)
+      .filter((code): code is string => code !== undefined)
+      .sort();
+
+    expect(exitCode).toBe(1);
+    expect(stderr).toEqual([]);
+    expect(diagnosticCodes).toEqual([
+      kpaDiagnosticCodes.missingComponentSlot,
+      kpaDiagnosticCodes.unknownComponentEmit,
+    ]);
+  });
+
+  it('resolves imported components through tsconfig path aliases in the real workspace graph', () => {
+    const tempDirectory = fs.mkdtempSync(path.join(os.tmpdir(), 'kpa-check-tsconfig-paths-'));
+    const projectDirectory = path.join(tempDirectory, 'app');
+    const componentDirectory = path.join(projectDirectory, 'src', 'components');
+    const pageDirectory = path.join(projectDirectory, 'src', 'pages');
+    const pagePath = path.join(pageDirectory, 'Page.kpa');
+
+    fs.mkdirSync(componentDirectory, { recursive: true });
+    fs.mkdirSync(pageDirectory, { recursive: true });
+    fs.writeFileSync(
+      path.join(projectDirectory, 'tsconfig.json'),
+      JSON.stringify(
+        {
+          compilerOptions: {
+            baseUrl: '.',
+            paths: {
+              '@components/*': ['src/components/*'],
+            },
+          },
+        },
+        null,
+        2,
+      ).concat('\n'),
+    );
+    fs.writeFileSync(
+      path.join(componentDirectory, 'UserCard.kpa'),
+      '[template]\n  <div></div>\n[/template]\n',
+    );
+    fs.writeFileSync(
+      pagePath,
+      [
+        '[template]',
+        '  <UserCard />',
+        '[/template]',
+        '',
+        '[ts]',
+        "  import UserCard from '@components/UserCard';",
+        '[/ts]',
+      ]
+        .join('\n')
+        .concat('\n'),
+    );
+
+    const { io, stderr, stdout } = createCapturedIo();
+    const exitCode = runKpaCheck([projectDirectory], {
+      cwd: projectDirectory,
+      io,
+    });
+
+    expect(exitCode).toBe(0);
+    expect(stdout).toEqual([
+      'kpa-check: 2 .kpa-Datei(en) geprueft, keine Diagnostics gefunden.',
+    ]);
+    expect(stderr).toEqual([]);
   });
 });
