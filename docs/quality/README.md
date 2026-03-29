@@ -28,6 +28,7 @@ tooling choices that support them.
 - Main local gate: `npm run check`
 - Full repository validation: `npm run validate`
 - Release payload check: `npm run release:check`
+- Alternate local install path: `pnpm install --frozen-lockfile`
 - Hosted workflow overview: [../../.github/workflows/README.md](../../.github/workflows/README.md)
 
 ## Maintenance Rule

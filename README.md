@@ -166,6 +166,7 @@ For local repository work:
 
 - Node.js >= 22
 - npm >= 10
+- pnpm >= 9 (supported local alternative)
 
 The maintainer default remains pinned to Node 22 through `.nvmrc`.
 
@@ -291,7 +292,8 @@ The release candidate should also pass:
 - `npm run release:check`
 
 GitHub Actions runs `npm run validate` on Node.js 22 and 24 for pushes to
-`main` and `develop` and for pull requests. Tagged releases rerun
+`main` and `develop` and for pull requests. The same CI workflow also runs
+`pnpm run validate` on Node.js 22 and 24. Tagged releases rerun
 `npm run validate` and `npm run release:check` on the maintainer default from
 `.nvmrc` before publish.
 

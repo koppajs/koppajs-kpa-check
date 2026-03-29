@@ -9,10 +9,14 @@ on:
 
 jobs:
   validate:
+    name: validate (${{ matrix.package-manager }}, ${{ matrix.node-version }})
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       matrix:
+        package-manager:
+          - npm
+          - pnpm
         node-version:
           - 22
           - 24
@@ -21,19 +25,43 @@ jobs:
       - name: Check out repository
         uses: actions/checkout@v6
 
-      - name: Set up Node.js
+      - name: Set up Node.js for npm
+        if: matrix.package-manager == 'npm'
         uses: actions/setup-node@v6
         with:
           node-version: ${{ matrix.node-version }}
           cache: npm
 
-      - name: Install dependencies
+      - name: Set up Node.js for pnpm
+        if: matrix.package-manager == 'pnpm'
+        uses: actions/setup-node@v6
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Set up pnpm
+        if: matrix.package-manager == 'pnpm'
+        run: |
+          corepack enable
+          corepack prepare pnpm@9 --activate
+
+      - name: Install dependencies with npm
+        if: matrix.package-manager == 'npm'
         run: npm ci
 
       - name: Install Rollup Linux binary
+        if: matrix.package-manager == 'npm'
         run: |
           rollup_version="$(node -p "require('./package-lock.json').packages['node_modules/rollup'].version")"
           npm install --no-save "@rollup/rollup-linux-x64-gnu@${rollup_version}"
 
-      - name: Validate package
+      - name: Install dependencies with pnpm
+        if: matrix.package-manager == 'pnpm'
+        run: pnpm install --frozen-lockfile
+
+      - name: Validate package with npm
+        if: matrix.package-manager == 'npm'
         run: npm run validate
+
+      - name: Validate package with pnpm
+        if: matrix.package-manager == 'pnpm'
+        run: pnpm run validate

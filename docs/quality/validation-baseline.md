@@ -18,6 +18,8 @@
 
 - GitHub Actions CI runs `npm run validate` on pull requests and on pushes to
   `main` and `develop` with Node.js 22 and 24.
+- The same GitHub Actions CI workflow also runs `pnpm run validate` on pull
+  requests and on pushes to `main` and `develop` with Node.js 22 and 24.
 - GitHub Actions release automation runs on `vX.Y.Z` tags, uses the maintainer
   default from `.nvmrc`, validates the package, verifies the publishable payload
   with `npm run release:check`, requires the tagged commit to be on `main`,
@@ -35,6 +37,8 @@
   install with `engine-strict=true`.
 - The package declares support for Node.js `>=22` and npm `>=10`; CI currently
   validates on Node.js 22 and 24.
+- `pnpm` remains a supported local dependency manager and CI validates that
+  path through `pnpm run validate`.
 - The `dist` smoke test ensures the built CLI can resolve package metadata and
   execute through the published runtime path.
 

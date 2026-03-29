@@ -1,6 +1,6 @@
 {
   "name": "@koppajs/koppajs-kpa-check",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "CLI diagnostics runner for KoppaJS .kpa files.",
   "license": "Apache-2.0",
   "repository": {
@@ -33,6 +33,7 @@
     "check:docs:contract": "node scripts/check-doc-contract.mjs",
     "check:docs:semantics": "node scripts/check-doc-semantics.mjs",
     "format:check": "node scripts/format-check.mjs",
+    "lock:sync:npm": "npx npm@11.12.1 install --package-lock-only --ignore-scripts",
     "build": "tsc -p tsconfig.build.json",
     "lint": "eslint . --ext .ts,.mjs --ignore-pattern dist --ignore-pattern node_modules --max-warnings=0",
     "pack:dry-run": "npm pack --dry-run",

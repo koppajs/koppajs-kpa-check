@@ -8,6 +8,7 @@ They should enforce the same repository checks described in
 
 - CI runs on pull requests and on pushes to `main` and `develop`
 - CI validates the repository with `npm run validate` on Node.js 22 and 24
+- CI also validates the repository with `pnpm run validate` on Node.js 22 and 24
 - Release tags rerun `npm run validate` and `npm run release:check` on the
   maintainer default from `.nvmrc`, verify the tagged commit is already on
   `main`, verify the tag version, and then publish to npm

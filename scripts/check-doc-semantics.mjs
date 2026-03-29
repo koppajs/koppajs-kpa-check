@@ -47,6 +47,7 @@ const requiredScripts = [
   'check:docs:semantics',
   'check:meta',
   'format:check',
+  'lock:sync:npm',
   'lint',
   'typecheck',
   'test',
@@ -89,6 +90,7 @@ if (!npmrc.includes('engine-strict=true')) {
 
 expectIncludes('README.md', readme, 'Node.js >= 22');
 expectIncludes('README.md', readme, 'npm >= 10');
+expectIncludes('README.md', readme, 'pnpm >= 9');
 expectIncludes(
   'README.md',
   readme,
@@ -113,11 +115,13 @@ for (const scriptName of [
 
 expectIncludes('CONTRIBUTING.md', contributing, 'Node.js >= 22');
 expectIncludes('CONTRIBUTING.md', contributing, 'npm >= 10');
+expectIncludes('CONTRIBUTING.md', contributing, 'pnpm >= 9');
 expectIncludes(
   'CONTRIBUTING.md',
   contributing,
   'The tracked `.npmrc` enforces compatible Node.js and npm versions during install.',
 );
+expectIncludes('CONTRIBUTING.md', contributing, 'pnpm install --frozen-lockfile');
 for (const scriptName of [
   'check:docs',
   'check:meta',
@@ -128,20 +132,25 @@ for (const scriptName of [
   'check',
   'validate',
   'release:check',
+  'lock:sync:npm',
 ]) {
   expectIncludes('CONTRIBUTING.md', contributing, `npm run ${scriptName}`);
 }
 
 expectIncludes('RELEASE.md', release, 'Node.js >= 22');
 expectIncludes('RELEASE.md', release, 'npm 10 or newer');
+expectIncludes('RELEASE.md', release, 'pnpm 9 or newer');
 expectIncludes(
   'RELEASE.md',
   release,
   'This repository enforces `engine-strict=true` through the tracked `.npmrc`',
 );
 expectIncludes('RELEASE.md', release, 'maintainer default from `.nvmrc`');
+expectIncludes('RELEASE.md', release, 'pnpm install --frozen-lockfile');
+expectIncludes('RELEASE.md', release, 'pnpm run validate');
 expectIncludes('RELEASE.md', release, 'npm run validate');
 expectIncludes('RELEASE.md', release, 'npm run release:check');
+expectIncludes('RELEASE.md', release, 'npm run lock:sync:npm');
 
 expectIncludes(
   'TESTING_STRATEGY.md',
@@ -156,6 +165,11 @@ expectIncludes(
 expectIncludes(
   'TESTING_STRATEGY.md',
   testingStrategy,
+  'The same CI workflow also runs `pnpm run validate` on Node.js 22 and 24.',
+);
+expectIncludes(
+  'TESTING_STRATEGY.md',
+  testingStrategy,
   'The release workflow reruns `npm run validate` and `npm run release:check` on the maintainer default from `.nvmrc` before publish.',
 );
 
@@ -163,6 +177,8 @@ expectIncludes('docs/meta/tooling-baseline.md', toolingBaseline, '.npmrc');
 expectIncludes('docs/meta/tooling-baseline.md', toolingBaseline, 'engine-strict=true');
 expectIncludes('docs/meta/tooling-baseline.md', toolingBaseline, 'Husky');
 expectIncludes('docs/meta/tooling-baseline.md', toolingBaseline, 'Node.js 22 and 24');
+expectIncludes('docs/meta/tooling-baseline.md', toolingBaseline, 'pnpm');
+expectIncludes('docs/meta/tooling-baseline.md', toolingBaseline, 'npm run lock:sync:npm');
 
 for (const snippet of [
   'validation-baseline.md',
@@ -170,6 +186,7 @@ for (const snippet of [
   'npm run check:docs',
   'npm run validate',
   'npm run release:check',
+  'pnpm install --frozen-lockfile',
 ]) {
   expectIncludes('docs/quality/README.md', qualityReadme, snippet);
 }
@@ -183,6 +200,11 @@ expectIncludes(
   'docs/quality/quality-gates.md',
   qualityGates,
   'Node.js 22 and 24',
+);
+expectIncludes(
+  'docs/quality/quality-gates.md',
+  qualityGates,
+  '`pnpm run validate` on Node.js 22 and 24',
 );
 
 expectIncludes(
@@ -200,6 +222,11 @@ expectIncludes(
   validationBaseline,
   'npm run release:check',
 );
+expectIncludes(
+  'docs/quality/validation-baseline.md',
+  validationBaseline,
+  'pnpm run validate',
+);
 
 expectIncludes(
   '.github/workflows/README.md',
@@ -207,10 +234,21 @@ expectIncludes(
   'Node.js 22 and 24',
 );
 expectIncludes('.github/workflows/README.md', workflowReadme, 'npm run validate');
+expectIncludes('.github/workflows/README.md', workflowReadme, 'pnpm run validate');
 expectIncludes('.github/workflows/README.md', workflowReadme, 'npm run release:check');
 
 if (!/node-version:\s*\$\{\{\s*matrix\.node-version\s*\}\}/.test(ciWorkflow)) {
   fail('.github/workflows/ci.yml no longer uses the documented Node.js test matrix.');
+}
+
+if (!/package-manager:/.test(ciWorkflow)) {
+  fail('.github/workflows/ci.yml must declare the package-manager matrix.');
+}
+
+for (const packageManager of ['npm', 'pnpm']) {
+  if (!new RegExp(`-\\s+${escapeRegExp(packageManager)}`).test(ciWorkflow)) {
+    fail(`.github/workflows/ci.yml is missing ${packageManager} in the package-manager matrix.`);
+  }
 }
 
 for (const version of ['22', '24']) {
@@ -218,6 +256,9 @@ for (const version of ['22', '24']) {
     fail(`.github/workflows/ci.yml is missing Node.js ${version} in the test matrix.`);
   }
 }
+
+expectIncludes('.github/workflows/ci.yml', ciWorkflow, 'pnpm install --frozen-lockfile');
+expectIncludes('.github/workflows/ci.yml', ciWorkflow, 'pnpm run validate');
 
 expectIncludes('.github/workflows/release.yml', releaseWorkflow, "node-version-file: '.nvmrc'");
 expectIncludes('.github/workflows/release.yml', releaseWorkflow, 'npm run validate');

@@ -14,6 +14,15 @@ not every internal refactor.
 
 This section is intentionally empty.
 
+## [0.1.3]
+
+- Refresh `package-lock.json` with npm 11 so the Node 24 npm CI path can run
+  `npm ci` without lockfile drift failures.
+- Add dual-manager CI validation for npm and pnpm on Node 22 and 24 while
+  keeping the tagged release workflow npm-based.
+- Restore pnpm as a supported local contributor workflow and document how to
+  resync the npm lockfile before release with `npm run lock:sync:npm`.
+
 ## [0.1.2]
 
 - Fix the published ESM runtime by resolving `package.json` without `__dirname`
