@@ -73,10 +73,19 @@ semantic checks that keep workflows, versions, and quality-gate claims aligned.
 
 - Node.js >= 22
 - npm >= 10
+- pnpm >= 9 for the alternate local install path
 
 The tracked `.npmrc` enforces compatible Node.js and npm versions during install.
+Local `pnpm` work is supported, but dependency changes must still leave
+`package-lock.json` in sync for the npm-based release workflow.
 
-Install dependencies:
+Install dependencies with your preferred supported manager:
+
+```bash
+pnpm install --frozen-lockfile
+```
+
+or
 
 ```bash
 npm install
@@ -168,6 +177,7 @@ That means:
 | `npm run typecheck` | Run TypeScript checks without emitting files |
 | `npm run format:check` | Check formatting without rewriting files |
 | `npm run release:check` | Run release-facing verification |
+| `npm run lock:sync:npm` | Refresh `package-lock.json` with the CI/release npm version |
 
 <p align="right">(<a href="#contributing-top">back to top</a>)</p>
 

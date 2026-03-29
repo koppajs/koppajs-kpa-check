@@ -7,7 +7,8 @@ choices behind it.
 
 ## Active Tooling
 
-- npm for dependency installation and script execution
+- npm for release installs, publish checks, and compatibility validation
+- pnpm for the supported alternate local install and validation flow
 - TypeScript for type checking and build output
 - Vitest for automated tests
 - ESLint for static analysis of TypeScript and repository scripts
@@ -21,7 +22,7 @@ choices behind it.
 - `package.json` requires Node.js `>=22` and npm `>=10`
 - `.nvmrc` keeps the maintainer default on Node.js 22
 - `.npmrc` enforces `engine-strict=true`
-- `.github/workflows/ci.yml` validates on Node.js 22 and 24
+- `.github/workflows/ci.yml` validates on Node.js 22 and 24 through npm and pnpm
 - `.github/workflows/release.yml` uses the maintainer default from `.nvmrc`
 
 ## Repository Gates
@@ -38,6 +39,7 @@ choices behind it.
 - `npm run validate`: CI/release gate for docs, meta, format, lint, typecheck,
   tests, build, and `dist` smoke coverage
 - `npm run release:check`: verify the publishable npm payload
+- `npm run lock:sync:npm`: refresh `package-lock.json` with the CI/release npm version
 
 ## Deliberate Omissions
 

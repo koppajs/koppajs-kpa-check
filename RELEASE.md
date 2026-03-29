@@ -57,6 +57,7 @@ Tooling expectations for local verification:
 
 - Node.js >= 22
 - npm 10 or newer
+- pnpm 9 or newer for the alternate local workflow
 
 This repository enforces `engine-strict=true` through the tracked `.npmrc`, so
 incompatible Node.js or npm versions should be treated as a release blocker.
@@ -72,6 +73,9 @@ locally.
 Recommended commands:
 
 ```bash
+pnpm install --frozen-lockfile
+pnpm run validate
+npm run lock:sync:npm
 npm ci
 npm run validate
 npm run release:check

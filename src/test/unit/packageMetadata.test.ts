@@ -58,6 +58,9 @@ describe('package manifest', () => {
     expect(packageManifest.scripts['check:docs:semantics']).toBe(
       'node scripts/check-doc-semantics.mjs',
     );
+    expect(packageManifest.scripts['lock:sync:npm']).toBe(
+      'npx npm@11.12.1 install --package-lock-only --ignore-scripts',
+    );
     expect(packageManifest.scripts['check:docs']).toBe(
       'npm run check:docs:contract && npm run check:docs:semantics',
     );

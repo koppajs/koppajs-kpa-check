@@ -95,6 +95,7 @@ Every user-visible change should protect the affected runtime path.
 ## Release And CI Gates
 
 - GitHub Actions CI runs `npm run validate` on Node.js 22 and 24.
+- The same CI workflow also runs `pnpm run validate` on Node.js 22 and 24.
 - The release workflow reruns `npm run validate` and `npm run release:check` on the maintainer default from `.nvmrc` before publish.
 - `npm run check:docs` combines the structural documentation contract and semantic repository checks.
 - The tracked `.npmrc` keeps Node.js and npm engine mismatches from silently slipping into local or hosted installs.

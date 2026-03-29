@@ -33,6 +33,7 @@
 - `.github/workflows/ci.yml`
   - runs on pull requests and on pushes to `main` and `develop`
   - validates `npm run validate` on Node.js 22 and 24
+  - validates `pnpm run validate` on Node.js 22 and 24
 - `.github/workflows/release.yml`
   - runs on `v*.*.*` tag pushes
   - reruns `npm run validate` and `npm run release:check` on the maintainer
