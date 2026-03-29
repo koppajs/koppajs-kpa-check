@@ -25,11 +25,18 @@ jobs:
       - name: Check out repository
         uses: actions/checkout@v6
 
-      - name: Set up Node.js
+      - name: Set up Node.js for npm
+        if: matrix.package-manager == 'npm'
         uses: actions/setup-node@v6
         with:
           node-version: ${{ matrix.node-version }}
-          cache: ${{ matrix.package-manager }}
+          cache: npm
+
+      - name: Set up Node.js for pnpm
+        if: matrix.package-manager == 'pnpm'
+        uses: actions/setup-node@v6
+        with:
+          node-version: ${{ matrix.node-version }}
 
       - name: Set up pnpm
         if: matrix.package-manager == 'pnpm'
