@@ -17,6 +17,9 @@ They should enforce the same repository checks described in
 formatting, linting, type checks, tests, build output, and the `dist` runtime
 smoke test.
 
+Vite 8 uses Rolldown, so npm installs no longer inject a Rollup Linux binary.
+The supported Node.js range is `^22.13.0 || ^24.0.0 || >=26.0.0`.
+
 ## Governance Rule
 
 If hosted workflow behavior changes, update:

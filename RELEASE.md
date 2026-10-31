@@ -55,7 +55,7 @@ Before cutting a release, ensure all of the following are true:
 
 Tooling expectations for local verification:
 
-- Node.js >= 22
+- Node.js ^22.13.0 || ^24.0.0 || >=26.0.0
 - npm 10 or newer
 - pnpm 9 or newer for the alternate local workflow
 
@@ -91,7 +91,7 @@ Before tagging, also review
 [docs/meta/version-compatibility.md](./docs/meta/version-compatibility.md)
 and confirm that the declared
 `@koppajs/koppajs-language-core` range is the range you intend to support.
-For the current release line, that declared range is `^0.1.4`.
+For the current release line, that declared range is `^0.2.0`.
 
 The published package contents are controlled by the `files` field in
 `package.json`. The intended publish payload is:

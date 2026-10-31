@@ -35,7 +35,7 @@
 - ESLint is enforced as a repository quality gate.
 - The tracked `.npmrc` enforces compatible Node.js and npm versions during
   install with `engine-strict=true`.
-- The package declares support for Node.js `>=22` and npm `>=10`; CI currently
+- The package declares support for Node.js `^22.13.0 || ^24.0.0 || >=26.0.0` and npm `>=10`; CI currently
   validates on Node.js 22 and 24.
 - `pnpm` remains a supported local dependency manager and CI validates that
   path through `pnpm run validate`.

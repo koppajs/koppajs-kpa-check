@@ -9,10 +9,29 @@ The effective compatibility contract is the dependency range in `package.json`.
 
 For the current release line, `kpa-check` declares:
 
-- `@koppajs/koppajs-language-core: ^0.1.4`
+- `@koppajs/koppajs-language-core: ^0.2.0`
 
 The package must not claim compatibility outside the range it actually declares
 and validates.
+
+## Validated Ecosystem Baseline
+
+The integration fixture in `src/test/unit/ecosystem.test.ts` validates the same
+application through CLI diagnostics and a real Vite production build with:
+
+- `@koppajs/koppajs-core` 3.0.11
+- `@koppajs/koppajs-router` 0.1.8
+- `@koppajs/koppajs-vite-plugin` 2.0.0
+- `@koppajs/koppajs-language-core` 0.2.0
+- Vite 8.3.5
+
+Core, Router, and the plugin are development-only integration dependencies.
+They do not expand the published CLI runtime dependency surface. The fixture
+checks explicit returned component state, bundling, and an unknown template
+symbol regression. It does not execute browser rendering or navigation.
+
+The supported Node.js range follows language-core:
+`^22.13.0 || ^24.0.0 || >=26.0.0`.
 
 ## Current Policy
 
@@ -22,7 +41,7 @@ conservatively:
 - `kpa-check` releases must validate against the exact minimum core version
   declared in `package.json`
 - patch-level `kpa-check` releases may widen the supported core range within the
-  same `0.1.x` line when the CLI contract does not change
+  same declared minor line when the CLI contract does not change
 - a new core minor line requires an explicit review, validation run, and a
   `kpa-check` release that updates the dependency range
 

@@ -14,6 +14,18 @@ not every internal refactor.
 
 This section is intentionally empty.
 
+## [0.2.0]
+
+- Fix GHSA-g3hv-75wg-m249 in the lint toolchain by overriding transitive
+  `minimatch` to 11.0.3 for npm and pnpm, with lint-selection regression tests.
+
+- Upgrade language-core to `^0.2.0` and align the Node.js engine range with its
+  supported runtimes: `^22.13.0 || ^24.0.0 || >=26.0.0`.
+- Refresh the development toolchain to TypeScript 6, TypeScript-ESLint 8.72,
+  ESLint 10, Vite 8, and Vitest 5 with synchronized npm and pnpm lockfiles.
+- Add a shared CLI/Vite build integration test against Core 3.0.11, Router
+  0.1.8, and Vite plugin 2.0.0; remove obsolete Rollup binary injection from CI.
+
 ## [0.1.3]
 
 - Refresh `package-lock.json` with npm 11 so the Node 24 npm CI path can run
