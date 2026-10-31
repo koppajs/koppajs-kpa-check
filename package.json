@@ -1,6 +1,6 @@
 {
   "name": "@koppajs/koppajs-kpa-check",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "CLI diagnostics runner for KoppaJS .kpa files.",
   "license": "Apache-2.0",
   "repository": {
@@ -53,12 +53,12 @@
     "npm": ">=10"
   },
   "dependencies": {
-    "@koppajs/koppajs-language-core": "^0.2.1"
+    "@koppajs/koppajs-language-core": "^0.2.2"
   },
   "devDependencies": {
-    "@koppajs/koppajs-core": "^3.0.11",
-    "@koppajs/koppajs-router": "^0.1.8",
-    "@koppajs/koppajs-vite-plugin": "^2.0.0",
+    "@koppajs/koppajs-core": "^3.0.12",
+    "@koppajs/koppajs-router": "^0.1.9",
+    "@koppajs/koppajs-vite-plugin": "^2.0.1",
     "@types/node": "^22.20.5",
     "@typescript-eslint/eslint-plugin": "^8.72.1",
     "@typescript-eslint/parser": "^8.72.1",

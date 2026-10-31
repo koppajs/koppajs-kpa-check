@@ -11,7 +11,7 @@ const formattingIssues = [];
 walk(rootDirectory);
 
 if (formattingIssues.length > 0) {
-  console.error('Formatierungsprobleme gefunden:');
+  console.error('Formatting issues found:');
 
   for (const issue of formattingIssues) {
     console.error(`- ${issue}`);
@@ -19,7 +19,7 @@ if (formattingIssues.length > 0) {
 
   process.exitCode = 1;
 } else {
-  console.log('Formatpruefung erfolgreich.');
+  console.log('Formatting check passed.');
 }
 
 function walk(directoryPath) {
@@ -49,15 +49,15 @@ function walk(directoryPath) {
     const text = fs.readFileSync(absolutePath, 'utf8');
 
     if (text.includes('\r')) {
-      formattingIssues.push(`${relativePath}: Windows-Zeilenenden sind nicht erlaubt.`);
+      formattingIssues.push(`${relativePath}: Windows line endings are not allowed.`);
     }
 
     if (/[ \t]+$/m.test(text)) {
-      formattingIssues.push(`${relativePath}: Zeilen mit nachgestellten Leerzeichen gefunden.`);
+      formattingIssues.push(`${relativePath}: Lines with trailing whitespace found.`);
     }
 
     if (text.length > 0 && !text.endsWith('\n')) {
-      formattingIssues.push(`${relativePath}: Abschliessender Zeilenumbruch fehlt.`);
+      formattingIssues.push(`${relativePath}: Missing final newline.`);
     }
   }
 }

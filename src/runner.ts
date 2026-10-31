@@ -296,7 +296,7 @@ function parseCliInvocation(
           errorKind: 'conflicting-options',
           exitCode: 2,
           message:
-            'kpa-check hat widerspruechliche Steueroptionen erhalten: --help, --version',
+            'kpa-check received conflicting control options: --help, --version',
           outputFormat,
           requestedTargets: targets,
           status: 'error',
@@ -311,7 +311,7 @@ function parseCliInvocation(
       return {
         errorKind: 'invalid-option',
         exitCode: 2,
-        message: `kpa-check hat eine unbekannte Option erhalten: ${argument}`,
+        message: `kpa-check received an unknown option: ${argument}`,
         outputFormat,
         requestedTargets: targets,
         status: 'error',
@@ -373,7 +373,7 @@ export function resolveCliTargets(
       errorKind: 'missing-targets',
       exitCode: 2,
       message: [
-        `kpa-check hat ${missingTargets.length} nicht existierende(s) Ziel(e) erhalten:`,
+        `kpa-check received ${missingTargets.length} nonexistent target(s):`,
         ...formattedTargets.map((targetPath) => `- ${targetPath}`),
       ].join('\n'),
       missingTargets,
@@ -508,7 +508,7 @@ export function runKpaCheck(
   );
 
   if (filePaths.length === 0) {
-    const message = 'kpa-check hat keine .kpa-Dateien gefunden.';
+    const message = 'kpa-check found no .kpa files.';
 
     if (parsedInvocation.outputFormat === 'json') {
       writeJson(io, {
@@ -555,7 +555,7 @@ export function runKpaCheck(
   }
 
   if (diagnosticCount === 0) {
-    const message = `kpa-check: ${diagnosticsByFile.length} .kpa-Datei(en) geprueft, keine Diagnostics gefunden.`;
+    const message = `kpa-check: checked ${diagnosticsByFile.length} .kpa file(s), no diagnostics found.`;
 
     if (parsedInvocation.outputFormat === 'json') {
       writeJson(io, {
@@ -581,7 +581,7 @@ export function runKpaCheck(
     return 0;
   }
 
-  const message = `kpa-check: ${diagnosticCount} Diagnostic(s) in ${diagnosticsByFile.length} .kpa-Datei(en) gefunden.`;
+  const message = `kpa-check: found ${diagnosticCount} diagnostic(s) in ${diagnosticsByFile.length} .kpa file(s).`;
 
   if (parsedInvocation.outputFormat === 'json') {
     writeJson(io, {

@@ -66,7 +66,7 @@ describe('resolveCliTargets', () => {
     expect(result).toEqual({
       errorKind: 'missing-targets',
       exitCode: 2,
-      message: 'kpa-check hat 1 nicht existierende(s) Ziel(e) erhalten:\n- missing.kpa',
+      message: 'kpa-check received 1 nonexistent target(s):\n- missing.kpa',
       missingTargets: ['/workspace/project/missing.kpa'],
       status: 'error',
     });
@@ -86,12 +86,25 @@ describe('resolveCliTargets', () => {
 });
 
 describe('formatDiagnostic', () => {
+  it('preserves user-authored Unicode paths and collaborator messages', () => {
+    expect(
+      formatDiagnostic(
+        '/workspace/größe.kpa',
+        {
+          message: 'User text: größe',
+          range: { line: 0, startChar: 0 },
+        },
+        '/workspace',
+      ),
+    ).toBe('größe.kpa:1:1 warning User text: größe');
+  });
+
   it('formats file paths and positions as 1-based warning output', () => {
     expect(
       formatDiagnostic(
         '/workspace/project/src/Page.kpa',
         {
-          message: 'Lokales Template-Symbol [missing] wurde nicht gefunden.',
+          message: 'Local template symbol [missing] was not found.',
           range: {
             line: 3,
             startChar: 5,
@@ -100,12 +113,33 @@ describe('formatDiagnostic', () => {
         '/workspace/project',
       ),
     ).toBe(
-      'src/Page.kpa:4:6 warning Lokales Template-Symbol [missing] wurde nicht gefunden.',
+      'src/Page.kpa:4:6 warning Local template symbol [missing] was not found.',
     );
   });
 });
 
 describe('runKpaCheck', () => {
+  it.each(['text', 'json'] as const)(
+    'reports conflicting options in English in %s mode',
+    (outputFormat) => {
+      const { io, stdout, stderr } = createCapturedIo();
+      expect(runKpaCheck(['--help', '--version'], { io, outputFormat })).toBe(2);
+      const message = 'kpa-check received conflicting control options: --help, --version';
+
+      if (outputFormat === 'json') {
+        expect(JSON.parse(stdout[0] ?? '')).toMatchObject({
+          message,
+          errorKind: 'conflicting-options',
+          exitCode: 2,
+        });
+        expect(stderr).toEqual([]);
+      } else {
+        expect(stderr).toEqual([message]);
+        expect(stdout).toEqual([]);
+      }
+    },
+  );
+
   it('prints help and exits with code 0 without touching the filesystem', () => {
     const { io, stderr, stdout } = createCapturedIo();
 
@@ -166,7 +200,7 @@ describe('runKpaCheck', () => {
 
     expect(exitCode).toBe(2);
     expect(stdout).toEqual([]);
-    expect(stderr).toEqual(['kpa-check hat eine unbekannte Option erhalten: --bogus']);
+    expect(stderr).toEqual(['kpa-check received an unknown option: --bogus']);
   });
 
   it('reports missing targets and exits with code 2', () => {
@@ -181,7 +215,7 @@ describe('runKpaCheck', () => {
     expect(exitCode).toBe(2);
     expect(stdout).toEqual([]);
     expect(stderr).toEqual([
-      'kpa-check hat 1 nicht existierende(s) Ziel(e) erhalten:\n- missing.kpa',
+      'kpa-check received 1 nonexistent target(s):\n- missing.kpa',
     ]);
   });
 
@@ -202,7 +236,7 @@ describe('runKpaCheck', () => {
       errorKind: 'missing-targets',
       exitCode: 2,
       kind: 'check',
-      message: 'kpa-check hat 1 nicht existierende(s) Ziel(e) erhalten:\n- missing.kpa',
+      message: 'kpa-check received 1 nonexistent target(s):\n- missing.kpa',
       missingTargets: ['/workspace/project/missing.kpa'],
       requestedTargets: ['missing.kpa'],
       resolvedTargets: [],
@@ -235,7 +269,7 @@ describe('runKpaCheck', () => {
     });
 
     expect(exitCode).toBe(0);
-    expect(stdout).toEqual(['kpa-check hat keine .kpa-Dateien gefunden.']);
+    expect(stdout).toEqual(['kpa-check found no .kpa files.']);
     expect(stderr).toEqual([]);
   });
 
@@ -284,7 +318,7 @@ describe('runKpaCheck', () => {
       ['/workspace/project/Page.kpa', '/workspace/project/src/UserCard.kpa'],
     ]);
     expect(stdout).toEqual([
-      'kpa-check: 2 .kpa-Datei(en) geprueft, keine Diagnostics gefunden.',
+      'kpa-check: checked 2 .kpa file(s), no diagnostics found.',
     ]);
     expect(stderr).toEqual([]);
   });
@@ -300,7 +334,7 @@ describe('runKpaCheck', () => {
               {
                 diagnostics: [
                   {
-                    message: 'spaeter',
+                    message: 'later',
                     range: {
                       endChar: 2,
                       line: 4,
@@ -324,7 +358,7 @@ describe('runKpaCheck', () => {
                     },
                   },
                   {
-                    message: 'frueher',
+                    message: 'earlier',
                     range: {
                       endChar: 1,
                       line: 1,
@@ -348,13 +382,13 @@ describe('runKpaCheck', () => {
 
     expect(exitCode).toBe(1);
     expect(stdout).toEqual([
-      'Page.kpa:2:1 warning frueher',
+      'Page.kpa:2:1 warning earlier',
       'Page.kpa:2:4 warning alpha',
       'Page.kpa:2:4 warning beta',
-      'Page.kpa:5:2 warning spaeter',
+      'Page.kpa:5:2 warning later',
     ]);
     expect(stderr).toEqual([
-      'kpa-check: 4 Diagnostic(s) in 1 .kpa-Datei(en) gefunden.',
+      'kpa-check: found 4 diagnostic(s) in 1 .kpa file(s).',
     ]);
   });
 
@@ -439,7 +473,7 @@ describe('runKpaCheck', () => {
       ],
       exitCode: 1,
       kind: 'check',
-      message: 'kpa-check: 2 Diagnostic(s) in 1 .kpa-Datei(en) gefunden.',
+      message: 'kpa-check: found 2 diagnostic(s) in 1 .kpa file(s).',
       missingTargets: [],
       requestedTargets: ['Page.kpa'],
       resolvedTargets: ['/workspace/project/Page.kpa'],
@@ -487,10 +521,10 @@ describe('runKpaCheck', () => {
 
     expect(exitCode).toBe(1);
     expect(stdout).toEqual([
-      'Page.kpa:3:10 warning Lokales Template-Symbol [missing] wurde nicht gefunden.',
+      'Page.kpa:3:10 warning Local template symbol [missing] was not found.',
     ]);
     expect(stderr).toEqual([
-      'kpa-check: 1 Diagnostic(s) in 2 .kpa-Datei(en) gefunden.',
+      'kpa-check: found 1 diagnostic(s) in 2 .kpa file(s).',
     ]);
   });
 
@@ -526,7 +560,7 @@ describe('runKpaCheck', () => {
 
     expect(exitCode).toBe(0);
     expect(stdout).toEqual([
-      'kpa-check: 2 .kpa-Datei(en) geprueft, keine Diagnostics gefunden.',
+      'kpa-check: checked 2 .kpa file(s), no diagnostics found.',
     ]);
     expect(stderr).toEqual([]);
   });
@@ -643,7 +677,7 @@ describe('runKpaCheck', () => {
 
     expect(exitCode).toBe(0);
     expect(stdout).toEqual([
-      'kpa-check: 2 .kpa-Datei(en) geprueft, keine Diagnostics gefunden.',
+      'kpa-check: checked 2 .kpa file(s), no diagnostics found.',
     ]);
     expect(stderr).toEqual([]);
   });

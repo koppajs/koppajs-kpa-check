@@ -14,6 +14,13 @@ not every internal refactor.
 
 This section is intentionally empty.
 
+## [0.2.2]
+
+- Use English for CLI errors, summaries, repository checks, and diagnostic fixtures
+  while preserving paths, identifiers, exit codes, and the JSON schema.
+- Require language-core `^0.2.2` for English diagnostics and refresh development
+  compatibility dependencies to Core 3.0.12, Router 0.1.9, and Vite plugin 2.0.1.
+
 ## [0.2.1]
 
 - Upgrade the runtime language-core dependency to `^0.2.1` with synchronized npm
