@@ -54,6 +54,9 @@ Purpose:
 
 - verify emit correctness
 - verify the built CLI still resolves package metadata at runtime
+- verify core 0.2.1 fixes through built-CLI JSON invocations: empty and
+  whitespace-only required default slots, real slot content, and valid versus
+  invalid prop expressions in scripts with unrelated type and import errors
 - verify package payload viability
 - fail packaging early if the repository baseline regressed
 

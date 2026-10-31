@@ -57,7 +57,7 @@ describe('package manifest', () => {
       'CHANGELOG.md',
       'LICENSE',
     ]);
-    expect(packageManifest.dependencies['@koppajs/koppajs-language-core']).toBe('^0.2.0');
+    expect(packageManifest.dependencies['@koppajs/koppajs-language-core']).toBe('^0.2.1');
     expect(packageManifest.dependencies['@koppajs/language-core']).toBeUndefined();
     expect(nvmrc).toBe('22');
     expect(npmrc).toContain('engine-strict=true');
