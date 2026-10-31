@@ -132,7 +132,7 @@ The governing behavior spec is
 
 This release line validates against:
 
-- `@koppajs/koppajs-language-core: ^0.1.4`
+- `@koppajs/koppajs-language-core: ^0.2.0`
 
 The effective compatibility contract is the dependency range in
 `package.json`. The maintenance policy lives in
@@ -160,11 +160,11 @@ npx kpa-check src
 
 For package consumers:
 
-- Node.js >= 22
+- Node.js ^22.13.0 || ^24.0.0 || >=26.0.0
 
 For local repository work:
 
-- Node.js >= 22
+- Node.js ^22.13.0 || ^24.0.0 || >=26.0.0
 - npm >= 10
 - pnpm >= 9 (supported local alternative)
 

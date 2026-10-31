@@ -25,7 +25,7 @@ Purpose:
 
 ### 2. Runner and language-core integration tests
 
-- `npm test`
+- `npm test` (Vitest 5 with Vite 8 on the supported Node.js engine range)
 
 Purpose:
 
@@ -36,6 +36,9 @@ Purpose:
 - verify deterministic diagnostic ordering
 - verify mixed file and directory target behavior
 - verify real integration with `KpaWorkspaceGraph`
+- verify the same explicit-state component through CLI analysis and a Vite 8
+  production build with published Core 3.0.11, Router 0.1.8, and plugin 2.0.0
+  (build compatibility only, not browser rendering or navigation)
 - verify workspace registrations discovered through `Core.take(...)`
 - verify imported component APIs surfaced through typed `Emits` / `Slots`
 - verify `tsconfig` path-alias resolution through the shared language layer

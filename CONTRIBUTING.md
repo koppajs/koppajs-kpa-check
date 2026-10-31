@@ -71,7 +71,7 @@ semantic checks that keep workflows, versions, and quality-gate claims aligned.
 
 ## Requirements
 
-- Node.js >= 22
+- Node.js ^22.13.0 || ^24.0.0 || >=26.0.0
 - npm >= 10
 - pnpm >= 9 for the alternate local install path
 

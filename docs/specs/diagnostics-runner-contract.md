@@ -56,6 +56,9 @@ The repository must:
 
 ## constraints
 
+- The supported Node.js range is `^22.13.0 || ^24.0.0 || >=26.0.0`, matching
+  the language-core 0.2 runtime dependency; npm 10 or newer is required.
+
 - The runner must not call `process.exit`.
 - The CLI wrapper may only assign `process.exitCode`.
 - Help and version output must not touch the workspace graph or filesystem target

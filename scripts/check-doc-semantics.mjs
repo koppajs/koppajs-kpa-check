@@ -72,8 +72,8 @@ if (
   );
 }
 
-if (packageManifest.engines?.node !== '>=22') {
-  fail('package.json must declare Node.js >=22.');
+if (packageManifest.engines?.node !== '^22.13.0 || ^24.0.0 || >=26.0.0') {
+  fail('package.json must declare Node.js ^22.13.0 || ^24.0.0 || >=26.0.0.');
 }
 
 if (packageManifest.engines?.npm !== '>=10') {
@@ -88,7 +88,7 @@ if (!npmrc.includes('engine-strict=true')) {
   fail('.npmrc must enforce engine-strict=true.');
 }
 
-expectIncludes('README.md', readme, 'Node.js >= 22');
+expectIncludes('README.md', readme, 'Node.js ^22.13.0 || ^24.0.0 || >=26.0.0');
 expectIncludes('README.md', readme, 'npm >= 10');
 expectIncludes('README.md', readme, 'pnpm >= 9');
 expectIncludes(
@@ -113,7 +113,7 @@ for (const scriptName of [
   expectIncludes('README.md', readme, `npm run ${scriptName}`);
 }
 
-expectIncludes('CONTRIBUTING.md', contributing, 'Node.js >= 22');
+expectIncludes('CONTRIBUTING.md', contributing, 'Node.js ^22.13.0 || ^24.0.0 || >=26.0.0');
 expectIncludes('CONTRIBUTING.md', contributing, 'npm >= 10');
 expectIncludes('CONTRIBUTING.md', contributing, 'pnpm >= 9');
 expectIncludes(
@@ -137,7 +137,7 @@ for (const scriptName of [
   expectIncludes('CONTRIBUTING.md', contributing, `npm run ${scriptName}`);
 }
 
-expectIncludes('RELEASE.md', release, 'Node.js >= 22');
+expectIncludes('RELEASE.md', release, 'Node.js ^22.13.0 || ^24.0.0 || >=26.0.0');
 expectIncludes('RELEASE.md', release, 'npm 10 or newer');
 expectIncludes('RELEASE.md', release, 'pnpm 9 or newer');
 expectIncludes(

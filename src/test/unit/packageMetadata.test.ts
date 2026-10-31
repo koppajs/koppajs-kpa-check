@@ -13,6 +13,8 @@ interface PackageManifest {
   files: readonly string[];
   main: string;
   name: string;
+  overrides: Record<string, string>;
+  pnpm: { overrides: Record<string, string> };
   publishConfig?: {
     access?: string;
   };
@@ -27,6 +29,13 @@ function readPackageManifest(): PackageManifest {
 }
 
 describe('package manifest', () => {
+  it('keeps the security overrides synchronized across package managers', () => {
+    const packageManifest = readPackageManifest();
+
+    expect(packageManifest.overrides).toEqual({ minimatch: '11.0.3' });
+    expect(packageManifest.pnpm.overrides).toEqual(packageManifest.overrides);
+  });
+
   it('publishes the scoped root package with the locked package surface', () => {
     const packageManifest = readPackageManifest();
     const nvmrc = readFileSync(path.join(process.cwd(), '.nvmrc'), 'utf8').trim();
@@ -36,7 +45,7 @@ describe('package manifest', () => {
     expect(Object.keys(packageManifest.exports).sort()).toEqual(['.']);
     expect(packageManifest.main).toBe('./dist/index.js');
     expect(packageManifest.types).toBe('./dist/index.d.ts');
-    expect(packageManifest.engines?.node).toBe('>=22');
+    expect(packageManifest.engines?.node).toBe('^22.13.0 || ^24.0.0 || >=26.0.0');
     expect(packageManifest.engines?.npm).toBe('>=10');
     expect(packageManifest.publishConfig?.access).toBe('public');
     expect(packageManifest.bin).toEqual({
@@ -48,7 +57,7 @@ describe('package manifest', () => {
       'CHANGELOG.md',
       'LICENSE',
     ]);
-    expect(packageManifest.dependencies['@koppajs/koppajs-language-core']).toBe('^0.1.4');
+    expect(packageManifest.dependencies['@koppajs/koppajs-language-core']).toBe('^0.2.0');
     expect(packageManifest.dependencies['@koppajs/language-core']).toBeUndefined();
     expect(nvmrc).toBe('22');
     expect(npmrc).toContain('engine-strict=true');

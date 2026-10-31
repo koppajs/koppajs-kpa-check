@@ -1,5 +1,8 @@
 # Quality Gates
 
+The current toolchain uses TypeScript 6, ESLint 10, Vitest 5, and Vite 8.
+Vite 8 uses Rolldown; no separate Rollup binary installation is required.
+
 ## Repository Checks
 
 - `npm run check:docs`: structural and semantic documentation validation.

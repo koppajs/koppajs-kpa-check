@@ -17,9 +17,28 @@ choices behind it.
   validation
 - GitHub Actions for CI validation and tag-driven release publishing
 
+## Dependency Compatibility
+
+- TypeScript 6.0.3 matches language-core 0.2 and the TypeScript-ESLint 8.72 peer range (`>=4.8.4 <6.1.0`). TypeScript 7 is intentionally excluded until that peer contract supports it.
+- Vitest 5 and Vite 8 use the current test-tool lines. ESLint 10 uses flat configuration without removed CLI ignore flags.
+- Node.js 22 types stay on the latest 22.x release to avoid accepting runtime APIs missing from the minimum supported Node.js line.
+- Core 3.0.11, Router 0.1.8, and Vite plugin 2.0.0 are development-only dependencies for the shared CLI/build integration test; language-core 0.2.0 remains the only direct runtime dependency.
+- Both `package-lock.json` and `pnpm-lock.yaml` must remain synchronized with the manifest and validated through their supported install paths.
+
+## Security Overrides
+
+- Both npm `overrides` and `pnpm.overrides` pin transitive `minimatch` to
+  `11.0.3` to fix GHSA-g3hv-75wg-m249 (CVE-2026-118764). ESLint 10.14 and
+  TypeScript-ESLint 8.72 still request the vulnerable 10.x line.
+- This is a deliberate major-version override. Verify actual ESLint file
+  selection and TypeScript rules, both frozen install paths, and full audits
+  when changing it. Do not suppress or ignore the advisory.
+- Remove the paired overrides once upstream dependency ranges select a fixed
+  version without them; keep both package-manager settings synchronized.
+
 ## Engine Enforcement
 
-- `package.json` requires Node.js `>=22` and npm `>=10`
+- `package.json` requires Node.js `^22.13.0 || ^24.0.0 || >=26.0.0` and npm `>=10`
 - `.nvmrc` keeps the maintainer default on Node.js 22
 - `.npmrc` enforces `engine-strict=true`
 - `.github/workflows/ci.yml` validates on Node.js 22 and 24 through npm and pnpm
