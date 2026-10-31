@@ -14,6 +14,17 @@ not every internal refactor.
 
 This section is intentionally empty.
 
+## [0.2.1]
+
+- Upgrade the runtime language-core dependency to `^0.2.1` with synchronized npm
+  and pnpm lockfiles and compatibility guidance.
+- Report missing required default slots for empty and whitespace-only paired
+  component tags through the shared language layer.
+- Avoid false component-prop type diagnostics caused by unrelated script or
+  import errors while retaining real type-mismatch diagnostics.
+- Add built-CLI JSON regression coverage for both fixes and their valid and
+  invalid controls.
+
 ## [0.2.0]
 
 - Fix GHSA-g3hv-75wg-m249 in the lint toolchain by overriding transitive

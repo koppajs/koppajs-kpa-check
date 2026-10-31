@@ -132,7 +132,11 @@ The governing behavior spec is
 
 This release line validates against:
 
-- `@koppajs/koppajs-language-core: ^0.2.0`
+- `@koppajs/koppajs-language-core: ^0.2.1`
+
+Core 0.2.1 reports missing required default slots on empty paired component tags
+and avoids false prop-type diagnostics from unrelated script or import errors.
+Language semantics remain owned by the shared core.
 
 The effective compatibility contract is the dependency range in
 `package.json`. The maintenance policy lives in

@@ -97,6 +97,12 @@ The repository must:
 8. `kpa-check --json src` emits one parseable JSON document.
 9. Clean runs return `0`; runs with diagnostics return `1`.
 10. Importing the root package does not execute the CLI automatically.
+11. With language-core 0.2.1 or later in the declared range, built-CLI JSON runs
+    surface missing required default slots on empty or whitespace-only paired
+    component tags while accepting real default content.
+12. Unrelated script or import errors must not cause false component-prop type
+    diagnostics; actual prop type mismatches still return diagnostics and `1`.
+    These language rules remain owned by language-core, not the runner.
 
 ## evolution_phase
 

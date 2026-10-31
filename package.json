@@ -1,6 +1,6 @@
 {
   "name": "@koppajs/koppajs-kpa-check",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "CLI diagnostics runner for KoppaJS .kpa files.",
   "license": "Apache-2.0",
   "repository": {
@@ -53,7 +53,7 @@
     "npm": ">=10"
   },
   "dependencies": {
-    "@koppajs/koppajs-language-core": "^0.2.0"
+    "@koppajs/koppajs-language-core": "^0.2.1"
   },
   "devDependencies": {
     "@koppajs/koppajs-core": "^3.0.11",

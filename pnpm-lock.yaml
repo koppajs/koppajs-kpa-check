@@ -12,8 +12,8 @@ importers:
   .:
     dependencies:
       '@koppajs/koppajs-language-core':
-        specifier: ^0.2.0
-        version: 0.2.0
+        specifier: ^0.2.1
+        version: 0.2.1
     devDependencies:
       '@koppajs/koppajs-core':
         specifier: ^3.0.11
@@ -289,8 +289,8 @@ packages:
     resolution: {integrity: sha512-azFcXCFKiFJKngKPQClMDJl3EyYlLCf9Estwpi0Eo5Lx6/ydD/rGZ3VFL19y472pyTWjnp8SsCNL6MbSURrMfg==}
     engines: {node: '>=22', pnpm: '>=10.24.0'}
 
-  '@koppajs/koppajs-language-core@0.2.0':
-    resolution: {integrity: sha512-Te5LD3PtM22/9lnPmVy8JxXNopYqr4tcAPgMSPc8HJX23hITgac5wddAKMTUQ/e3XbN4ItaLDKVyicelI8azwQ==}
+  '@koppajs/koppajs-language-core@0.2.1':
+    resolution: {integrity: sha512-EP3pf5NJzitIkoRHZzjodvLHV76vfrdIGxHYvox7shQFSx2ArXr+csySodyKE5xqIlTSQToI8XyR40/WvdLt6w==}
     engines: {node: ^22.13.0 || ^24.0.0 || >=26.0.0, npm: '>=10'}
 
   '@koppajs/koppajs-router@0.1.8':
@@ -1414,7 +1414,7 @@ snapshots:
 
   '@koppajs/koppajs-core@3.0.11': {}
 
-  '@koppajs/koppajs-language-core@0.2.0':
+  '@koppajs/koppajs-language-core@0.2.1':
     dependencies:
       typescript: 6.0.3
 
