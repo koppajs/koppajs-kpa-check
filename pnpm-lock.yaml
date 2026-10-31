@@ -12,18 +12,18 @@ importers:
   .:
     dependencies:
       '@koppajs/koppajs-language-core':
-        specifier: ^0.2.1
-        version: 0.2.1
+        specifier: ^0.2.2
+        version: 0.2.2
     devDependencies:
       '@koppajs/koppajs-core':
-        specifier: ^3.0.11
-        version: 3.0.11
+        specifier: ^3.0.12
+        version: 3.0.12
       '@koppajs/koppajs-router':
-        specifier: ^0.1.8
-        version: 0.1.8
+        specifier: ^0.1.9
+        version: 0.1.9
       '@koppajs/koppajs-vite-plugin':
-        specifier: ^2.0.0
-        version: 2.0.0(vite@8.3.5(@types/node@22.20.5)(esbuild@0.28.2)(sass@1.107.1))
+        specifier: ^2.0.1
+        version: 2.0.1(vite@8.3.5(@types/node@22.20.5)(esbuild@0.28.2)(sass@1.107.1))
       '@types/node':
         specifier: ^22.20.5
         version: 22.20.5
@@ -285,20 +285,20 @@ packages:
   '@keyv/serialize@1.1.1':
     resolution: {integrity: sha512-dXn3FZhPv0US+7dtJsIi2R+c7qWYiReoEh5zUntWCf4oSpMNib8FDhSoed6m3QyZdx5hK7iLFkYk3rNxwt8vTA==}
 
-  '@koppajs/koppajs-core@3.0.11':
-    resolution: {integrity: sha512-azFcXCFKiFJKngKPQClMDJl3EyYlLCf9Estwpi0Eo5Lx6/ydD/rGZ3VFL19y472pyTWjnp8SsCNL6MbSURrMfg==}
+  '@koppajs/koppajs-core@3.0.12':
+    resolution: {integrity: sha512-kN+tLvWcWwH2YamZKGXMI02XwjZ0c+4UQI9hDyQaRQjFUjGpVLtmpZMcl72Lz6OJOWJOOA3OHRcHNf26AJaNbw==}
     engines: {node: '>=22', pnpm: '>=10.24.0'}
 
-  '@koppajs/koppajs-language-core@0.2.1':
-    resolution: {integrity: sha512-EP3pf5NJzitIkoRHZzjodvLHV76vfrdIGxHYvox7shQFSx2ArXr+csySodyKE5xqIlTSQToI8XyR40/WvdLt6w==}
+  '@koppajs/koppajs-language-core@0.2.2':
+    resolution: {integrity: sha512-1IrKGqS8epjSMKVEtNmbIzOGhmdbZ8sKQ8LSa+tj+Q1o4PNu+wXadBP++/JtImIMN18r1gWHwf1Q4DycvtRQkg==}
     engines: {node: ^22.13.0 || ^24.0.0 || >=26.0.0, npm: '>=10'}
 
-  '@koppajs/koppajs-router@0.1.8':
-    resolution: {integrity: sha512-Lln4bpm4GNwq2JiipNoJOiOifjpeuEDw7QEWexFO01OismR5+JYm1k1+NuFYz0P/7Cex9L1/9j1wNU55SlOOIw==}
+  '@koppajs/koppajs-router@0.1.9':
+    resolution: {integrity: sha512-3PEXhL/HCHT8oE5qr4Y8ISiinKCOe1qIkGvA7JTasCmtUg9ayyse3yytWdZhI8pnPWezlURgLWY+anA4g94mCw==}
     engines: {node: '>=22', pnpm: '>=10.24.0'}
 
-  '@koppajs/koppajs-vite-plugin@2.0.0':
-    resolution: {integrity: sha512-+QKw/yunkWJRJf8rDdIMRHYDr75A1ZEoLTm1/Nz6eROK4/GORv+96Xk/xpDYBD/LHJUkJG9LhfFKIqN4PRhctA==}
+  '@koppajs/koppajs-vite-plugin@2.0.1':
+    resolution: {integrity: sha512-onXuVKDMqzqUNCqxCO04JWjqGObqY7qEJ7r6hicWKWogICtzjifLuAKOzMTauHf6eWlGaLm9+Q2SbonleVvVhA==}
     engines: {node: '>=22.12.0', pnpm: '>=10.24.0'}
     peerDependencies:
       vite: ^7.0.0 || ^8.0.0
@@ -1412,15 +1412,15 @@ snapshots:
 
   '@keyv/serialize@1.1.1': {}
 
-  '@koppajs/koppajs-core@3.0.11': {}
+  '@koppajs/koppajs-core@3.0.12': {}
 
-  '@koppajs/koppajs-language-core@0.2.1':
+  '@koppajs/koppajs-language-core@0.2.2':
     dependencies:
       typescript: 6.0.3
 
-  '@koppajs/koppajs-router@0.1.8': {}
+  '@koppajs/koppajs-router@0.1.9': {}
 
-  '@koppajs/koppajs-vite-plugin@2.0.0(vite@8.3.5(@types/node@22.20.5)(esbuild@0.28.2)(sass@1.107.1))':
+  '@koppajs/koppajs-vite-plugin@2.0.1(vite@8.3.5(@types/node@22.20.5)(esbuild@0.28.2)(sass@1.107.1))':
     dependencies:
       acorn: 8.19.0
       autoprefixer: 10.6.2(postcss@8.5.32)

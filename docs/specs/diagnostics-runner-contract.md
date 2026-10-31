@@ -22,7 +22,7 @@ The repository must:
 7. reject unknown or conflicting CLI control options with exit code `2`
 8. construct a `KpaWorkspaceGraph` rooted at the resolved target set
 9. enumerate every reachable `.kpa` file across that target set
-10. print `kpa-check hat keine .kpa-Dateien gefunden.` and return `0` when no
+10. print `kpa-check found no .kpa files.` and return `0` when no
    `.kpa` files are reachable
 11. print diagnostics as `path:line:character warning message`
 12. emit diagnostics in deterministic file-path, line, character, and message
@@ -59,6 +59,9 @@ The repository must:
 - The supported Node.js range is `^22.13.0 || ^24.0.0 || >=26.0.0`, matching
   the language-core 0.2 runtime dependency; npm 10 or newer is required.
 
+- All package-owned messages in text and JSON output are English. Paths, identifiers,
+  and collaborator-supplied diagnostic text are preserved verbatim; language-core
+  owns the language of its diagnostics.
 - The runner must not call `process.exit`.
 - The CLI wrapper may only assign `process.exitCode`.
 - Help and version output must not touch the workspace graph or filesystem target

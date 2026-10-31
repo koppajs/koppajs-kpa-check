@@ -9,7 +9,7 @@ The effective compatibility contract is the dependency range in `package.json`.
 
 For the current release line, `kpa-check` declares:
 
-- `@koppajs/koppajs-language-core: ^0.2.1`
+- `@koppajs/koppajs-language-core: ^0.2.2`
 
 The package must not claim compatibility outside the range it actually declares
 and validates.
@@ -19,10 +19,10 @@ and validates.
 The integration fixture in `src/test/unit/ecosystem.test.ts` validates the same
 application through CLI diagnostics and a real Vite production build with:
 
-- `@koppajs/koppajs-core` 3.0.11
-- `@koppajs/koppajs-router` 0.1.8
-- `@koppajs/koppajs-vite-plugin` 2.0.0
-- `@koppajs/koppajs-language-core` 0.2.1
+- `@koppajs/koppajs-core` 3.0.12
+- `@koppajs/koppajs-router` 0.1.9
+- `@koppajs/koppajs-vite-plugin` 2.0.1
+- `@koppajs/koppajs-language-core` 0.2.2
 - Vite 8.3.5
 
 Core, Router, and the plugin are development-only integration dependencies.

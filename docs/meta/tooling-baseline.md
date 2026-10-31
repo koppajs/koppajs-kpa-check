@@ -22,7 +22,7 @@ choices behind it.
 - TypeScript 6.0.3 matches language-core 0.2 and the TypeScript-ESLint 8.72 peer range (`>=4.8.4 <6.1.0`). TypeScript 7 is intentionally excluded until that peer contract supports it.
 - Vitest 5 and Vite 8 use the current test-tool lines. ESLint 10 uses flat configuration without removed CLI ignore flags.
 - Node.js 22 types stay on the latest 22.x release to avoid accepting runtime APIs missing from the minimum supported Node.js line.
-- Core 3.0.11, Router 0.1.8, and Vite plugin 2.0.0 are development-only dependencies for the shared CLI/build integration test; language-core 0.2.1 remains the only direct runtime dependency.
+- Core 3.0.12, Router 0.1.9, and Vite plugin 2.0.1 are development-only dependencies for the shared CLI/build integration test; language-core 0.2.2 remains the only direct runtime dependency.
 - Both `package-lock.json` and `pnpm-lock.yaml` must remain synchronized with the manifest and validated through their supported install paths.
 
 ## Security Overrides

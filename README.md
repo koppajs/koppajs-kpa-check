@@ -118,6 +118,7 @@ The stable public surface of this repository is intentionally small:
 - scanning all reachable `.kpa` files across the resolved target set
 - printing diagnostics as `path:line:character warning message`
 - emitting a single JSON document with `--json`
+- using English for package-owned messages without rewriting paths or user text
 - returning exit code `0` for success, `1` for diagnostics, and `2` for invalid
   input
 - the root package export `runKpaCheck(argv, options?)` plus its public runner
@@ -132,10 +133,10 @@ The governing behavior spec is
 
 This release line validates against:
 
-- `@koppajs/koppajs-language-core: ^0.2.1`
+- `@koppajs/koppajs-language-core: ^0.2.2`
 
-Core 0.2.1 reports missing required default slots on empty paired component tags
-and avoids false prop-type diagnostics from unrelated script or import errors.
+Core 0.2.2 uses English diagnostic messages and retains the required-default-slot
+and prop-assignability fixes introduced in 0.2.1.
 Language semantics remain owned by the shared core.
 
 The effective compatibility contract is the dependency range in
